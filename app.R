@@ -15,15 +15,7 @@ library(extrafontdb)
 library(ggtext)
 source("Helpers.R")
 source("Helpers2.R")
-#dir.create('~/.fonts')
-#file.copy("www/Spartan-Bold.ttf", "~/.fonts")
-#file.copy("www/Spartan-Light.ttf", "~/.fonts")
-#file.copy("www/Spartan-Regular.ttf", "~/.fonts")
-#file.copy("www/Spartan-Medium.ttf", "~/.fonts")
-#system('fc-cache -f ~/.fonts')
 
-font_import(paths = "www", pattern = "Spartan", prompt = FALSE)
-loadfonts()
 # Define UI for application that draws a histogram
 ui <- fluidPage(
     
