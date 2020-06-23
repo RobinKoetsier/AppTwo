@@ -16,6 +16,7 @@ library(ggtext)
 library(GAlogger)
 ga_set_tracking_id("UA-170459986-1")
 ga_set_approval(consent = TRUE)
+ga_collect_event(event_category = "Start", event_action = "shiny app launched")
 source("Helpers.R")
 source("Helpers2.R")
 
