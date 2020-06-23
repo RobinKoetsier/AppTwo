@@ -18,7 +18,7 @@ source("Helpers2.R")
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-    
+    tags$head(includeHTML(("google-analytics.html"))),
     # Application title
     titlePanel("Create your own age plot - A Shiny app by @RobinWilhelmus"),
     
