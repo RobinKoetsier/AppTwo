@@ -274,7 +274,7 @@ server <- function(input, output) {
                                                     right = right))
                     }
         
-    }, height = 400, width = 750, res = 72) #,res=96 
+    }, height = 500, width = 940, res = 96) #,res=96 
 }
 
 # Run the application 
