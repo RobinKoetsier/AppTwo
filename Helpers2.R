@@ -1,5 +1,5 @@
 TransfermarktShinyOlder <- function(team_name, team_num, season, comp_code) {
- 
+ allComp <- readRDS("my_data.rds")
   session <- bow(glue::glue("https://www.transfermarkt.com/{team_name}/leistungsdaten/verein/{team_num}/plus/1?reldata={comp_code}%26{season}/"))
   #session <- bow(url)
   # grab name from photo element instead
