@@ -14,24 +14,15 @@ library(ggforce)
 library(extrafont)
 library(extrafontdb)
 library(ggtext)
-
-
-#library(GAlogger)
-#ga_set_tracking_id("UA-170459986-1 ")
-#ga_set_approval(consent = TRUE)
-#ga_collect_pageview(page = "/AppTwo")
-#ga_collect_pageview(page = "/ShinyAppAge")
-# ga_collect_event(event_category = "Start", event_action = "shiny app launched")
 #library(GAlogger)
 #library(Cairo)
 source("Helpers.R")
 source("Helpers2.R")
 #options(shiny.usecairo=T)
 allComp <- readRDS("my_data.rds")
-allComp <- as.data.frame(allComp)
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-    tags$head(includeHTML(("google-analytics.html"))),
+    
     # Application title
     titlePanel("Create your own age plot - A Shiny app by @RobinWilhelmus"),
     
@@ -74,7 +65,6 @@ ui <- fluidPage(
                                  h5(" "),
                                  h5("There are two thing important: the club (inter-mailand) and the teamcode (46).", align = "left"),
                                  h5("The other number is for the season, but we ignore that. Just copy the two values and paste them in the boxes on the left (including the minus sign (-)", align = "left"),
-                                 h5("Select a competition code from the table under te 'Competition codes' tab, or leave it empty"),
                                  h5("Click on the 'scrape!' or 'Scrape older season!' button and wait a little while."),
                                  h5("A (new) table on this page will appear which means the data is scraped and ready to plot!"),
                                  br(),
@@ -284,8 +274,9 @@ server <- function(input, output) {
                                                     right = right))
                     }
         
-    }, height = 400, width = 750) #,res=96 
+    }, height = 400, width = 750, res = 72) #,res=96 
 }
 
 # Run the application 
 shinyApp(ui = ui, server = server)
+
