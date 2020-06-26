@@ -15,10 +15,10 @@ library(extrafont)
 library(extrafontdb)
 library(ggtext)
 #library(GAlogger)
-library(Cairo)
+#library(Cairo)
 source("Helpers.R")
 source("Helpers2.R")
-options(shiny.usecairo=T)
+#options(shiny.usecairo=T)
 allComp <- readRDS("my_data.rds")
 # Define UI for application that draws a histogram
 ui <- fluidPage(
