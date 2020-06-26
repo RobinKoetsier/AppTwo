@@ -22,7 +22,7 @@ TransfermarktShinyOlder <- function(team_name, team_num, season) {
   
   ## get length
   session <- bow(glue::glue("https://www.transfermarkt.com/{team_name}/kader/verein/{team_num}/saison_id/{season}/plus/1"))
-  h2
+  
   
   Seas <- scrape(session) %>% 
     html_nodes("h2") %>% 

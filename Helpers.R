@@ -123,12 +123,12 @@ TransfermarktShiny<- function(team_name, team_num) {
   return(all_team_minutes)
 }
 
-ScatterShiny <- function(data,color1,color2,color3,color4,color5,teamname,alpha){
+ScatterShiny <- function(data,color1,color2,color3,color4,color5,teamname,alpha,left,right){
   #data<- all_team_minutes
   teamname <- gsub("-"," ",teamname)
   
   ggplot(data, aes(x=age_now, y=minutes)) +
-    geom_rect(aes(xmin=25,xmax=30, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
+    geom_rect(aes(xmin=left,xmax=right, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
     
     ggrepel::geom_text_repel(aes(label = name, family = "Spartan-Light"),color=color5, size = 3) +
     ggforce::geom_link(aes(x=age_now, xend=leave_age, y = minutes, yend = minutes,alpha = -stat(index)), color=color3) +
@@ -153,12 +153,12 @@ ScatterShiny <- function(data,color1,color2,color3,color4,color5,teamname,alpha)
   
 }
 
-ScatterShinyTime <- function(data,color1,color2,color3,color4,color5,teamname,alpha){
+ScatterShinyTime <- function(data,color1,color2,color3,color4,color5,teamname,alpha,left,right){
   #data<- all_team_minutes
   teamname <- gsub("-"," ",teamname)
   
   ggplot(data, aes(x=age_now, y=minutes)) +
-    geom_rect(aes(xmin=25,xmax=30, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
+    geom_rect(aes(xmin=left,xmax=right, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
     
     ggrepel::geom_text_repel(aes(label = name, family = "Spartan-Light"),color=color5, size = 3) +
     # ggforce::geom_link(aes(x=age_now, xend=leave_age, y = minutes, yend = minutes,alpha = (1*-stat(index))), color=color3) +
@@ -183,12 +183,12 @@ ScatterShinyTime <- function(data,color1,color2,color3,color4,color5,teamname,al
   
 }
 
-ScatterShinyContract <- function(data,color1,color2,color3,color4,color5,teamname,alpha){
+ScatterShinyContract <- function(data,color1,color2,color3,color4,color5,teamname,alpha,left,right){
   #data<- all_team_minutes
   teamname <- gsub("-"," ",teamname)
   
   ggplot(data, aes(x=age_now, y=minutes)) +
-    geom_rect(aes(xmin=25,xmax=30, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
+    geom_rect(aes(xmin=left,xmax=right, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
     
     ggrepel::geom_text_repel(aes(label = name, family = "Spartan-Light"),color=color5, size = 3) +
     ggforce::geom_link(aes(x=age_now, xend=leave_age, y = minutes, yend = minutes,alpha = (1*-stat(index))), color=color3) +
@@ -213,12 +213,12 @@ ScatterShinyContract <- function(data,color1,color2,color3,color4,color5,teamnam
   
 }
 
-ScatterShinyNo <- function(data,color1,color2,color3,color4,color5,teamname,alpha){
+ScatterShinyNo <- function(data,color1,color2,color3,color4,color5,teamname,alpha,left,right){
   #data<- all_team_minutes
   teamname <- gsub("-"," ",teamname)
   
   ggplot(data, aes(x=age_now, y=minutes)) +
-    geom_rect(aes(xmin=25,xmax=30, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
+    geom_rect(aes(xmin=left,xmax=right, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
     
     ggrepel::geom_text_repel(aes(label = name, family = "Spartan-Light"),color=color5, size = 3) +
     # ggforce::geom_link(aes(x=age_now, xend=leave_age, y = minutes, yend = minutes,alpha = (1*-stat(index))), color=color3) +
