@@ -121,6 +121,8 @@ TransfermarktShiny<- function(team_name, team_num, comp_code) {
   all_team_minutes$name <- all_team_minutes$name %>% str_replace_all("^(\\w)\\w+ (?=\\w)", "\\1.")
   all_team_minutes$Club <- Club
   all_team_minutes$Comp <- comp_code
+  compName <- data %>% dplyr::filter(Competition_Code == comp_code)
+  all_team_minutes$CompName <- compName$Competition_Name
   return(all_team_minutes)
 }
 
@@ -141,11 +143,12 @@ ScatterShiny <- function(data,color1,color2,color3,color4,color5,teamname,alpha,
     labs(x = paste("Age on",format(Sys.time(), "%d %b %Y")),
          y = "Minutes played",
          title = paste("Age plot", data$Club[1]),
+         subtitle = paste(data$CompName[1], data$Seas[1]),
          caption = "Made on shiny.robinkoetsier.nl/ShinyAppAge | An app by @RobinWilhelmus ") +
     theme(
       text = element_text(family = "Spartan-Light"),
       plot.title = element_text(size = 15, hjust = 0.5),
-      plot.subtitle = element_text(size = 10),
+      plot.subtitle = element_text(size = 10, hjust = 0.5),
       plot.caption = element_text(size = 8),
       axis.title = element_text(size = 10),
       axis.text = element_text(size = 10),
@@ -171,11 +174,12 @@ ScatterShinyTime <- function(data,color1,color2,color3,color4,color5,teamname,al
     labs(x = paste("Age on",format(Sys.time(), "%d %b %Y")),
          y = "Minutes played",
          title = paste("Age plot", data$Club[1]),
+         subtitle = paste(data$CompName[1], data$Seas[1]),
          caption = "Made on shiny.robinkoetsier.nl/ShinyAppAge | An app by @RobinWilhelmus ") +
     theme(
       text = element_text(family = "Spartan-Light"),
       plot.title = element_text(size = 15, hjust = 0.5),
-      plot.subtitle = element_text(size = 10),
+      plot.subtitle = element_text(size = 10, hjust = 0.5),
       plot.caption = element_text(size = 8),
       axis.title = element_text(size = 10),
       axis.text = element_text(size = 10),
@@ -201,11 +205,12 @@ ScatterShinyContract <- function(data,color1,color2,color3,color4,color5,teamnam
     labs(x = paste("Age on",format(Sys.time(), "%d %b %Y")),
          y = "Minutes played",
          title = paste("Age plot", data$Club[1]),
+         subtitle = paste(data$CompName[1], data$Seas[1]),
          caption = "Made on shiny.robinkoetsier.nl/ShinyAppAge | An app by @RobinWilhelmus ") +
     theme(
       text = element_text(family = "Spartan-Light"),
       plot.title = element_text(size = 15, hjust = 0.5),
-      plot.subtitle = element_text(size = 10),
+      plot.subtitle = element_text(size = 10, hjust = 0.5),
       plot.caption = element_text(size = 8),
       axis.title = element_text(size = 10),
       axis.text = element_text(size = 10),
@@ -231,11 +236,12 @@ ScatterShinyNo <- function(data,color1,color2,color3,color4,color5,teamname,alph
     labs(x = paste("Age on",format(Sys.time(), "%d %b %Y")),
          y = "Minutes played",
          title = paste("Age plot", data$Club[1]),
+         subtitle = paste(data$CompName[1], data$Seas[1]),
          caption = "Made on shiny.robinkoetsier.nl/ShinyAppAge | An app by @RobinWilhelmus ") +
     theme(
       text = element_text(family = "Spartan-Light"),
       plot.title = element_text(size = 15, hjust = 0.5),
-      plot.subtitle = element_text(size = 10),
+      plot.subtitle = element_text(size = 10, hjust = 0.5),
       plot.caption = element_text(size = 8),
       axis.title = element_text(size = 10),
       axis.text = element_text(size = 10),
