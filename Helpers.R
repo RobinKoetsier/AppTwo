@@ -121,7 +121,7 @@ TransfermarktShiny<- function(team_name, team_num, comp_code) {
   all_team_minutes$name <- all_team_minutes$name %>% str_replace_all("^(\\w)\\w+ (?=\\w)", "\\1.")
   all_team_minutes$Club <- Club
   all_team_minutes$Comp <- comp_code
-  compName <- data %>% dplyr::filter(Competition_Code == comp_code)
+  compName <- as.data.frame(data) %>% dplyr::filter(Competition_Code == comp_code)
   all_team_minutes$CompName <- compName$Competition_Name
   return(all_team_minutes)
 }
