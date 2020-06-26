@@ -1,6 +1,6 @@
 library(purrr)
-library(reactable)
 library(dplyr)
+library(reactable)
 library(ggplot2)
 library(rvest)
 library(polite)
@@ -14,12 +14,12 @@ library(ggforce)
 library(extrafont)
 library(extrafontdb)
 library(ggtext)
-library(GAlogger)
-#library(Cairo)
+#library(GAlogger)
+library(Cairo)
 source("Helpers.R")
 source("Helpers2.R")
-#options(shiny.usecairo=T)
-
+options(shiny.usecairo=T)
+allComp <- readRDS("my_data.rds")
 # Define UI for application that draws a histogram
 ui <- fluidPage(
    
@@ -32,7 +32,9 @@ ui <- fluidPage(
             textInput("team", "Team", "pec-zwolle"),
             textInput("teamcode", "Teamcode", "1269"),
             textInput("season", "Season (enter 2018 for 18/19)", "2019"),
+            
             actionButton("myButton", "Scrape!"),
+            br(),
             actionButton("myButton2", "Scrape custom season!"),
             textInput("rect","Rectangle 'peak age' color (white will make it disappear)", "red"),
             textInput("line","Time ate club color", "black"),
