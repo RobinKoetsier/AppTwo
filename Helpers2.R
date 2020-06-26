@@ -1,6 +1,6 @@
-TransfermarktShinyOlder <- function(team_name, team_num, season) {
+TransfermarktShinyOlder <- function(team_name, team_num, season, comp_code) {
  
-  session <- bow(glue::glue("https://www.transfermarkt.com/{team_name}/leistungsdaten/verein/{team_num}/plus/1?reldata=%26{season}/"))
+  session <- bow(glue::glue("https://www.transfermarkt.com/{team_name}/leistungsdaten/verein/{team_num}/plus/1?reldata={comp_code}%26{season}/"))
   #session <- bow(url)
   # grab name from photo element instead
   result_name <- scrape(session) %>% 
@@ -98,12 +98,12 @@ TransfermarktShinyOlder <- function(team_name, team_num, season) {
 }
 
  
-ScatterShinyOther <- function(data,color1,color2,color3,color4,color5,teamname,alpha){
+ScatterShinyOther <- function(data,color1,color2,color3,color4,color5,teamname,alpha,left,right){
   #data<- all_team_minutes
   teamname <- gsub("-"," ",teamname)
   
   ggplot(data, aes(x=age, y=minutes)) +
-    geom_rect(aes(xmin=25,xmax=30, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
+    geom_rect(aes(xmin=left,xmax=right, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
     
     ggrepel::geom_text_repel(aes(label = name, family = "Spartan-Light"),color=color5, size = 3) +
     ggforce::geom_link(aes(x=age, xend=leave_age, y = minutes, yend = minutes,alpha = -stat(index)), color=color3) +
@@ -128,12 +128,12 @@ ScatterShinyOther <- function(data,color1,color2,color3,color4,color5,teamname,a
   
 }
 
-ScatterShinyTimeOther <- function(data,color1,color2,color3,color4,color5,teamname,alpha){
+ScatterShinyTimeOther <- function(data,color1,color2,color3,color4,color5,teamname,alpha,left,right){
   #data<- all_team_minutes
   teamname <- gsub("-"," ",teamname)
   
   ggplot(data, aes(x=age, y=minutes)) +
-    geom_rect(aes(xmin=25,xmax=30, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
+    geom_rect(aes(xmin=left,xmax=right, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
     
     ggrepel::geom_text_repel(aes(label = name, family = "Spartan-Light"),color=color5, size = 3) +
     # ggforce::geom_link(aes(x=age_now, xend=leave_age, y = minutes, yend = minutes,alpha = (1*-stat(index))), color=color3) +
@@ -158,12 +158,12 @@ ScatterShinyTimeOther <- function(data,color1,color2,color3,color4,color5,teamna
   
 }
 
-ScatterShinyContractOther <- function(data,color1,color2,color3,color4,color5,teamname,alpha){
+ScatterShinyContractOther <- function(data,color1,color2,color3,color4,color5,teamname,alpha,left,right){
   #data<- all_team_minutes
   teamname <- gsub("-"," ",teamname)
   
   ggplot(data, aes(x=age, y=minutes)) +
-    geom_rect(aes(xmin=25,xmax=30, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
+    geom_rect(aes(xmin=left,xmax=right, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
     
     ggrepel::geom_text_repel(aes(label = name, family = "Spartan-Light"),color=color5, size = 3) +
     ggforce::geom_link(aes(x=age, xend=leave_age, y = minutes, yend = minutes,alpha = (1*-stat(index))), color=color3) +
@@ -188,12 +188,12 @@ ScatterShinyContractOther <- function(data,color1,color2,color3,color4,color5,te
   
 }
 
-ScatterShinyNoOther <- function(data,color1,color2,color3,color4,color5,teamname,alpha){
+ScatterShinyNoOther <- function(data,color1,color2,color3,color4,color5,teamname,alpha,left,right){
   #data<- all_team_minutes
   teamname <- gsub("-"," ",teamname)
   
   ggplot(data, aes(x=age, y=minutes)) +
-    geom_rect(aes(xmin=25,xmax=30, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
+    geom_rect(aes(xmin=left,xmax=right, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
     
     ggrepel::geom_text_repel(aes(label = name, family = "Spartan-Light"),color=color5, size = 3) +
     # ggforce::geom_link(aes(x=age_now, xend=leave_age, y = minutes, yend = minutes,alpha = (1*-stat(index))), color=color3) +

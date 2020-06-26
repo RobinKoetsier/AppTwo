@@ -1,6 +1,6 @@
-TransfermarktShiny<- function(team_name, team_num) {
+TransfermarktShiny<- function(team_name, team_num, comp_code) {
   
-  session <- bow(glue::glue("https://www.transfermarkt.com/{team_name}/leistungsdaten/verein/{team_num}/plus/1?reldata=%262019/"))
+  session <- bow(glue::glue("https://www.transfermarkt.com/{team_name}/leistungsdaten/verein/{team_num}/plus/1?reldata={comp_code}%262019/"))
   #session <- bow(url)
   # grab name from photo element instead
   result_name <- scrape(session) %>% 

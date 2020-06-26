@@ -1,6 +1,5 @@
 library(purrr)
 library(dplyr)
-library(reactable)
 library(ggplot2)
 library(rvest)
 library(polite)
@@ -15,10 +14,10 @@ library(extrafont)
 library(extrafontdb)
 library(ggtext)
 #library(GAlogger)
-#library(Cairo)
+library(Cairo)
 source("Helpers.R")
 source("Helpers2.R")
-#options(shiny.usecairo=T)
+options(shiny.usecairo=T)
 allComp <- readRDS("my_data.rds")
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -32,7 +31,7 @@ ui <- fluidPage(
             textInput("team", "Team", "pec-zwolle"),
             textInput("teamcode", "Teamcode", "1269"),
             textInput("season", "Season (enter 2018 for 18/19)", "2019"),
-            
+            textInput("compcode", "Competition code (leave empty for total minutes across all competitions)", "NL1"),
             actionButton("myButton", "Scrape!"),
             br(),
             actionButton("myButton2", "Scrape custom season!"),
@@ -87,6 +86,7 @@ ui <- fluidPage(
                                  h5("Data scraped for:"),
                                  verbatimTextOutput("text2"),
                                  verbatimTextOutput("text3"),
+                                 verbatimTextOutput("text4"),
                                  plotOutput("scatplot2")),
                         tabPanel("Competition codes",
                                  reactableOutput("codes", width = "auto", height = "auto",
@@ -111,18 +111,21 @@ server <- function(input, output) {
         input$myButton
         data = isolate(TransfermarktShiny(
             team_name = input$team, 
-            team_num = input$teamcode))
+            team_num = input$teamcode,
+            comp_code = input$compcode))
     })
     myData2 <- reactive({
         input$myButton2
         data = isolate(TransfermarktShinyOlder(
             team_name = input$team, 
             team_num = input$teamcode,
-            season = input$season))
+            season = input$season,
+            comp_code = input$compcode))
     })
     output$text1 <- renderText(myData()$Club[1])
     output$text2 <- renderText(myData2()$Club[1])
     output$text3 <- renderText(myData2()$Seas[1])
+    output$text4 <- renderText(input$compcode)
     output$myTable <- renderTable(myData())
     output$codes <- renderReactable({
         reactable(
@@ -216,6 +219,8 @@ server <- function(input, output) {
         color5 <- isolate(input$name)
         teamname <- isolate(input$team)
         alpha <- isolate(input$alpha)
+        left <- isolate(input$peak[1])
+        right <- isolate(input$peak[2])
         if(input$alpha == 3){
             isolate(ScatterShinyOther(data = myData2(),
                                       color1 = color1,
@@ -224,7 +229,9 @@ server <- function(input, output) {
                                       color4= color4,
                                       color5= color5,
                                       teamname = teamname,
-                                      alpha = alpha))
+                                      alpha = alpha,
+                                      left=left,
+                                      right = right))
         } else 
             if(input$alpha == 2){
                 isolate(ScatterShinyTimeOther(data = myData2(),
@@ -234,7 +241,9 @@ server <- function(input, output) {
                                               color4= color4,
                                               color5= color5,
                                               teamname = teamname,
-                                              alpha = alpha))
+                                              alpha = alpha,
+                                              left=left,
+                                              right = right))
             } else 
                 if(input$alpha == 1){
                     isolate(ScatterShinyContractOther(data = myData2(),
@@ -244,7 +253,9 @@ server <- function(input, output) {
                                                       color4= color4,
                                                       color5= color5,
                                                       teamname = teamname,
-                                                      alpha = alpha))
+                                                      alpha = alpha,
+                                                      left=left,
+                                                      right = right))
                     
                 } else
                     if(input$alpha == 0){
@@ -255,7 +266,9 @@ server <- function(input, output) {
                                                     color4=color4,
                                                     color5=color5,
                                                     teamname = teamname,
-                                                    alpha = alpha))
+                                                    alpha = alpha,
+                                                    left=left,
+                                                    right = right))
                     }
         
     }, height = 400, width = 750) #,res=96 
