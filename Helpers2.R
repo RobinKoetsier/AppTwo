@@ -96,7 +96,7 @@ TransfermarktShinyOlder <- function(team_name, team_num, season, comp_code) {
   all_team_minutes$Seas <- Seas
   all_team_minutes$Comp <- comp_code
   compName <- allComp%>% dplyr::filter(Competition_Code == comp_code)
-  all_team_minutes$CompName <- compName$Competition_Name
+  all_team_minutes$CompName <- compName[1,2]
   return(all_team_minutes)
 }
 

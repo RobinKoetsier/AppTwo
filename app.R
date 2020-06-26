@@ -28,6 +28,7 @@ source("Helpers.R")
 source("Helpers2.R")
 #options(shiny.usecairo=T)
 allComp <- readRDS("my_data.rds")
+allComp <- as.data.frame(allComp)
 # Define UI for application that draws a histogram
 ui <- fluidPage(
     tags$head(includeHTML(("google-analytics.html"))),
