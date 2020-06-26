@@ -95,8 +95,8 @@ TransfermarktShinyOlder <- function(team_name, team_num, season, comp_code) {
   all_team_minutes$Club <- Club
   all_team_minutes$Seas <- Seas
   all_team_minutes$Comp <- comp_code
-  compName <- allComp%>% dplyr::filter(Competition_Code == comp_code)
-  all_team_minutes$CompName <- compName[1,2]
+  #compName <- allComp%>% dplyr::filter(Competition_Code == comp_code)
+  #all_team_minutes$CompName <- compName[1,2]
   return(all_team_minutes)
 }
 
@@ -118,7 +118,7 @@ ScatterShinyOther <- function(data,color1,color2,color3,color4,color5,teamname,a
     labs(x = "Age at start of season",
          y = "Minutes played",
          title = paste("Age plot", data$Club[1]),
-         subtitle = paste(data$CompName[1], data$Seas[1]),
+         subtitle = paste(data$Comp[1], data$Seas[1]),
          caption = "Made on shiny.robinkoetsier.nl/ShinyAppAge | An app by @RobinWilhelmus ") +
     theme(
       text = element_text(family = "Spartan-Light"),
@@ -149,7 +149,7 @@ ScatterShinyTimeOther <- function(data,color1,color2,color3,color4,color5,teamna
     labs(x = "Age at start of season",
          y = "Minutes played",
          title = paste("Age plot", data$Club[1]),
-         subtitle = paste(data$CompName[1], data$Seas[1]),
+         subtitle = paste(data$Comp[1], data$Seas[1]),
          caption = "Made on shiny.robinkoetsier.nl/ShinyAppAge | An app by @RobinWilhelmus ") +
     theme(
       text = element_text(family = "Spartan-Light"),
@@ -180,7 +180,7 @@ ScatterShinyContractOther <- function(data,color1,color2,color3,color4,color5,te
     labs(x = "Age at start of season",
          y = "Minutes played",
          title = paste("Age plot", data$Club[1]),
-         subtitle = paste(data$CompName[1], data$Seas[1]),
+         subtitle = paste(data$Comp[1], data$Seas[1]),
          caption = "Made on shiny.robinkoetsier.nl/ShinyAppAge | An app by @RobinWilhelmus ") +
     theme(
       text = element_text(family = "Spartan-Light"),
@@ -211,7 +211,7 @@ ScatterShinyNoOther <- function(data,color1,color2,color3,color4,color5,teamname
     labs(x = "Age at start of season",
          y = "Minutes played",
          title = paste("Age plot", data$Club[1]),
-         subtitle = paste(data$CompName[1], data$Seas[1]),
+         subtitle = paste(data$Comp[1], data$Seas[1]),
          caption = "Made on shiny.robinkoetsier.nl/ShinyAppAge | An app by @RobinWilhelmus ") +
     theme(
       text = element_text(family = "Spartan-Light"),
