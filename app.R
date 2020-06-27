@@ -210,7 +210,7 @@ server <- function(input, output) {
                                                right = right))
                     }
         
-    }, height = 400, width = 750 )
+    }, height = 500, width = 940, res = 96)
     output$scatplot2 = renderPlot({
         if (input$go == 0)
             return()
