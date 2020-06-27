@@ -108,7 +108,7 @@ server <- function(input, output) {
     output$tab <- renderUI({
         tags$a(href="https://cpb-us-e1.wpmucdn.com/sites.ucsc.edu/dist/d/276/files/2015/10/colorbynames.png", "Click here!")})
     output$tab2 <- renderUI({
-        tags$a(href="https://shinynew.robinkoetsier.nl/ShinyAppAge", "Click here for the app with only the option for one season! It's less slow than this one!")})
+        tags$a(href="https://shinynew.robinkoetsier.nl/AppTwo", "Click here for the app with all the new options!")})
     myData <- reactive({
         input$myButton
         data = isolate(TransfermarktShiny(
