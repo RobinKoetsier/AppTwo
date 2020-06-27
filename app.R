@@ -1,4 +1,6 @@
+
 library(purrr)
+library("profvis")
 library(reactable)
 library(dplyr)
 library(ggplot2)
@@ -32,7 +34,7 @@ ui <- fluidPage(
             textInput("team", "Team", "pec-zwolle"),
             textInput("teamcode", "Teamcode", "1269"),
             textInput("season", "Season (enter 2018 for 18/19)", "2019"),
-            textInput("compcode", "Competition code (leave empty for total minutes across all competitions)", "NL1"),
+            textInput("compcode", "Competition code (leave empty or enter a dot for total minutes across all competitions)", "NL1"),
             actionButton("myButton", "Scrape!"),
             br(),
             actionButton("myButton2", "Scrape older season!"),
@@ -108,7 +110,7 @@ server <- function(input, output) {
     output$tab <- renderUI({
         tags$a(href="https://cpb-us-e1.wpmucdn.com/sites.ucsc.edu/dist/d/276/files/2015/10/colorbynames.png", "Click here!")})
     output$tab2 <- renderUI({
-        tags$a(href="https://shinynew.robinkoetsier.nl/ShinyAppAge", "Click here for the app without all the extra options. It's less slow.")})
+        tags$a(href="https://shinynew.robinkoetsier.nl/ShinyAppAge", "Click here for the app with only the option for one season! It's less slow than this one!")})
     myData <- reactive({
         input$myButton
         data = isolate(TransfermarktShiny(
@@ -210,7 +212,7 @@ server <- function(input, output) {
                                                right = right))
                     }
         
-    }, height = 500, width = 940, res = 96)
+    }, height = 400, width = 750 )
     output$scatplot2 = renderPlot({
         if (input$go == 0)
             return()
@@ -274,9 +276,12 @@ server <- function(input, output) {
                                                     right = right))
                     }
         
-    }, height = 500, width = 940, res = 96) #,res=96 
+    }, height = 400, width = 750, res = 72) #,res=96 
 }
 
 # Run the application 
+
 shinyApp(ui = ui, server = server)
+
+
 
