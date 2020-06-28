@@ -1,6 +1,6 @@
 
 library(purrr)
-library("profvis")
+
 library(reactable)
 library(dplyr)
 library(ggplot2)
