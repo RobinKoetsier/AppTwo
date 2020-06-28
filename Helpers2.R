@@ -1,5 +1,5 @@
 TransfermarktShinyOlder <- function(team_name, team_num, season, comp_code) {
-  allComp <- readRDS("my_data.rds")
+ allComp <- readRDS("my_data.rds")
   session <- bow(glue::glue("https://www.transfermarkt.com/{team_name}/leistungsdaten/verein/{team_num}/plus/1?reldata={comp_code}%26{season}/"))
   #session <- bow(url)
   # grab name from photo element instead
@@ -96,7 +96,6 @@ TransfermarktShinyOlder <- function(team_name, team_num, season, comp_code) {
   all_team_minutes$Seas <- Seas
   all_team_minutes$Comp <- comp_code
   compName <- allComp%>% dplyr::filter(Competition_Code == comp_code)
- 
   all_team_minutes$CompName <- compName[1,2]
   return(all_team_minutes)
 }
