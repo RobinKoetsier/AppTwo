@@ -32,7 +32,7 @@ ui <- fluidPage(
             textInput("team", "Team", "pec-zwolle"),
             textInput("teamcode", "Teamcode", "1269"),
             textInput("season", "Season (enter 2018 for 18/19)", "2019"),
-            textInput("compcode", "Competition code (leave empty for total minutes across all competitions)", "NL1"),
+            textInput("compcode", "Competition code (Enter a dot to get all everything combined)", "NL1"),
             actionButton("myButton", "Scrape!"),
             br(),
             actionButton("myButton2", "Scrape older season!"),
