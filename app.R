@@ -11,6 +11,8 @@ library(stringr)
 library(lubridate)
 library(ggrepel)
 library(ggforce)
+library(ggdark)
+
 library(extrafont)
 library(extrafontdb)
 library(ggtext)
@@ -18,6 +20,9 @@ library(ggtext)
 #library(Cairo)
 source("Helpers.R")
 source("Helpers2.R")
+library(GAlogger)
+ga_set_tracking_id("UA-170459986-1")
+ga_set_approval(consent = TRUE)
 #options(shiny.usecairo=T)
 allComp <- readRDS("my_data.rds")
 # Define UI for application that draws a histogram
@@ -36,11 +41,11 @@ ui <- fluidPage(
             actionButton("myButton", "Scrape!"),
             br(),
             actionButton("myButton2", "Scrape older season!"),
-            textInput("rect","Rectangle 'peak age' color (white will make it disappear)", "red"),
+            textInput("rect","Rectangle 'peak age' color", "red"),
             textInput("line","Time ate club color", "black"),
             textInput("line2","Line contract length color", "black"),
             textInput("dot","Dot color", "black"),
-            textInput("name","Player name color", "blue"),
+            textInput("name","Player name color", "black"),
             sliderInput("peak", "Peak age range:",min = 23, max = 35, value = c(25,30)),
             radioButtons("alpha", "See lines?",
                          c("Both lines" = 3,
@@ -90,6 +95,12 @@ ui <- fluidPage(
                                  verbatimTextOutput("text3"),
                                  verbatimTextOutput("text4"),
                                  plotOutput("scatplot2")),
+                        tabPanel("Age Plot older season dark mode",
+                                 h5("Data scraped for:"),
+                                 verbatimTextOutput("text6"),
+                                 verbatimTextOutput("text7"),
+                                 verbatimTextOutput("text8"),
+                                 plotOutput("scatplot3")),
                         tabPanel("Competition codes",
                                  reactableOutput("codes", width = "auto", height = "auto",
                                                  inline = FALSE)))
@@ -129,6 +140,9 @@ server <- function(input, output) {
     output$text3 <- renderText(myData2()$Seas[1])
     output$text4 <- renderText(myData2()$Comp[1])
     output$text5 <- renderText(myData()$Comp[1])
+    output$text6 <- renderText(myData2()$Club[1])
+    output$text7 <- renderText(myData2()$Seas[1])
+    output$text8 <- renderText(myData2()$Comp[1])
     output$myTable <- renderTable(myData())
     output$codes <- renderReactable({
         reactable(
@@ -263,6 +277,70 @@ server <- function(input, output) {
                 } else
                     if(input$alpha == 0){
                         isolate(ScatterShinyNoOther(data = myData2(),
+                                                    color1 = color1,
+                                                    color2 = color3,
+                                                    color3= color2,
+                                                    color4=color4,
+                                                    color5=color5,
+                                                    teamname = teamname,
+                                                    alpha = alpha,
+                                                    left=left,
+                                                    right = right))
+                    }
+        
+    }, height = 500, width = 940, res = 96) #,res=96 
+    output$scatplot3 = renderPlot({
+        if (input$go == 0)
+            return()
+        req(input$go)
+        color1 <- isolate(input$rect)
+        color2 <- isolate(input$line)
+        color3 <- isolate(input$line2)
+        color4 <- isolate(input$dot)
+        color5 <- isolate(input$name)
+        teamname <- isolate(input$team)
+        alpha <- isolate(input$alpha)
+        left <- isolate(input$peak[1])
+        right <- isolate(input$peak[2])
+        if(input$alpha == 3){
+            isolate(ScatterShinyOtherDark(data = myData2(),
+                                      color1 = color1,
+                                      color2 = color2,
+                                      color3= color3,
+                                      color4= color4,
+                                      color5= color5,
+                                      teamname = teamname,
+                                      alpha = alpha,
+                                      left=left,
+                                      right = right))
+        } else 
+            if(input$alpha == 2){
+                isolate(ScatterShinyTimeOtherDark(data = myData2(),
+                                              color1 = color1,
+                                              color2 = color2,
+                                              color3= color3,
+                                              color4= color4,
+                                              color5= color5,
+                                              teamname = teamname,
+                                              alpha = alpha,
+                                              left=left,
+                                              right = right))
+            } else 
+                if(input$alpha == 1){
+                    isolate(ScatterShinyContractOtherDark(data = myData2(),
+                                                      color1 = color1,
+                                                      color2 = color3,
+                                                      color3= color2,
+                                                      color4= color4,
+                                                      color5= color5,
+                                                      teamname = teamname,
+                                                      alpha = alpha,
+                                                      left=left,
+                                                      right = right))
+                    
+                } else
+                    if(input$alpha == 0){
+                        isolate(ScatterShinyNoOtherDark(data = myData2(),
                                                     color1 = color1,
                                                     color2 = color3,
                                                     color3= color2,
