@@ -96,7 +96,7 @@ ui <- fluidPage(
                                  verbatimTextOutput("text3"),
                                  verbatimTextOutput("text4"),
                                  plotOutput("scatplot2")),
-                        tabPanel("Age Plot older season dark mode",
+                        tabPanel("Age Plot older season dark theme",
                                  h5("Data scraped for:"),
                                  verbatimTextOutput("text6"),
                                  verbatimTextOutput("text7"),
