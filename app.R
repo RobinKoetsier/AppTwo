@@ -12,7 +12,7 @@ library(lubridate)
 library(ggrepel)
 library(ggforce)
 library(ggdark)
-
+library(shinyWidgets)
 library(extrafont)
 library(extrafontdb)
 library(ggtext)
@@ -21,6 +21,7 @@ library(ggtext)
 source("Helpers.R")
 source("Helpers2.R")
 source("Helpers3.R")
+source("Helpers4.R")
 library(GAlogger)
 ga_set_tracking_id("UA-170459986-1")
 ga_set_approval(consent = TRUE)
@@ -35,7 +36,11 @@ ui <- fluidPage(
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
+            
             textInput("team", "Team", "pec-zwolle"),
+            #pickerInput('picker 1', 'picker1', c(1,2,3,4,5), options=pickerOptions(liveSearch=T)),
+            #pickerInput('picker 2', 'picker2', c(1,2,3,4,5), options = list(`live-search`=TRUE))
+            #,
             textInput("teamcode", "Teamcode", "1269"),
             textInput("season", "Season (enter 2018 for 18/19)", "2019"),
             textInput("compcode", "Competition code (Enter a dot to get everything combined)", "NL1"),
@@ -90,13 +95,17 @@ ui <- fluidPage(
                                  verbatimTextOutput("text1"),
                                  verbatimTextOutput("text5"),
                                  plotOutput("scatplot")),
+                        tabPanel("Age Plot 2019 dark theme", 
+                                 verbatimTextOutput("text9"),
+                                 verbatimTextOutput("text10"),
+                                 plotOutput("scatplot4")),
                         tabPanel("Age Plot older season",
                                  h5("Data scraped for:"),
                                  verbatimTextOutput("text2"),
                                  verbatimTextOutput("text3"),
                                  verbatimTextOutput("text4"),
                                  plotOutput("scatplot2")),
-                        tabPanel("Age Plot older season dark theme",
+                        tabPanel("Age Plot older season dark mode",
                                  h5("Data scraped for:"),
                                  verbatimTextOutput("text6"),
                                  verbatimTextOutput("text7"),
@@ -144,6 +153,8 @@ server <- function(input, output) {
     output$text6 <- renderText(myData2()$Club[1])
     output$text7 <- renderText(myData2()$Seas[1])
     output$text8 <- renderText(myData2()$Comp[1])
+    output$text9 <- renderText(myData()$Club[1])
+    output$text10 <- renderText(myData()$Comp[1])
     output$myTable <- renderTable(myData())
     output$codes <- renderReactable({
         reactable(
@@ -214,6 +225,70 @@ server <- function(input, output) {
                 } else
                     if(input$alpha == 0){
                         isolate(ScatterShinyNo(data = myData(),
+                                               color1 = color1,
+                                               color2 = color3,
+                                               color3= color2,
+                                               color4=color4,
+                                               color5=color5,
+                                               teamname = teamname,
+                                               alpha = alpha,
+                                               left=left,
+                                               right = right))
+                    }
+        
+    }, height = 500, width = 940, res = 96)
+    output$scatplot4 = renderPlot({
+        if (input$go == 0)
+            return()
+        req(input$go)
+        color1 <- isolate(input$rect)
+        color2 <- isolate(input$line)
+        color3 <- isolate(input$line2)
+        color4 <- isolate(input$dot)
+        color5 <- isolate(input$name)
+        teamname <- isolate(input$team)
+        alpha <- isolate(input$alpha)
+        left <- isolate(input$peak[1])
+        right <- isolate(input$peak[2])
+        if(input$alpha == 3){
+            isolate(ScatterShinyDark(data = myData(),
+                                 color1 = color1,
+                                 color2 = color2,
+                                 color3= color3,
+                                 color4= color4,
+                                 color5= color5,
+                                 teamname = teamname,
+                                 alpha = alpha,
+                                 left=left,
+                                 right = right))
+        } else 
+            if(input$alpha == 2){
+                isolate(ScatterShinyTimeDark(data = myData(),
+                                         color1 = color1,
+                                         color2 = color2,
+                                         color3= color3,
+                                         color4= color4,
+                                         color5= color5,
+                                         teamname = teamname,
+                                         alpha = alpha,
+                                         left=left,
+                                         right = right))
+            } else 
+                if(input$alpha == 1){
+                    isolate(ScatterShinyContractDark(data = myData(),
+                                                 color1 = color1,
+                                                 color2 = color3,
+                                                 color3= color2,
+                                                 color4= color4,
+                                                 color5= color5,
+                                                 teamname = teamname,
+                                                 alpha = alpha,
+                                                 left=left,
+                                                 right = right))
+                    
+                } else
+                    if(input$alpha == 0){
+                        isolate(ScatterShinyNoDark(data = myData(),
                                                color1 = color1,
                                                color2 = color3,
                                                color3= color2,
