@@ -123,6 +123,8 @@ TransfermarktShiny<- function(team_name, team_num, comp_code) {
   all_team_minutes$Comp <- comp_code
   compName <- allComp %>% dplyr::filter(Competition_Code == comp_code)
   all_team_minutes$CompName <- compName[1,2]
+  Som <- all_team_minutes %>% filter(!is.na(age_now)) 
+  all_team_minutes$Som <- sum(Som$minutes)
   return(all_team_minutes)
 }
 

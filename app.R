@@ -18,7 +18,7 @@ library(extrafontdb)
 library(ggtext)
 #library(GAlogger)
 #library(Cairo)
-source("Helpers.R")
+#source("Helpers.R")
 source("Helpers2.R")
 source("Helpers3.R")
 source("Helpers4.R")
@@ -80,6 +80,7 @@ ui <- fluidPage(
                                  h5("A (new) table on this page will appear which means the data is scraped and ready to plot!"),
                                  br(),
                                  h4("Go to the 'Age plot' or 'Age plot older season' tab"),
+                                 h4("Age plot 2019 will only show the players that are still at the club. Use the other scrape function with 2019 as entry to get all the players for that season."),
                                  br(),
                                  h5("Choose some colours from here:"),
                                  uiOutput("tab"),
@@ -94,6 +95,7 @@ ui <- fluidPage(
                                  h5("Data scraped for:"),
                                  verbatimTextOutput("text1"),
                                  verbatimTextOutput("text5"),
+                                 verbatimTextOutput("text11"),
                                  plotOutput("scatplot")),
                         tabPanel("Age Plot 2019 dark theme", 
                                  verbatimTextOutput("text9"),
@@ -155,6 +157,7 @@ server <- function(input, output) {
     output$text8 <- renderText(myData2()$Comp[1])
     output$text9 <- renderText(myData()$Club[1])
     output$text10 <- renderText(myData()$Comp[1])
+    output$text11 <- renderText(paste0(myData()$Som[1]," minutes"))
     output$myTable <- renderTable(myData())
     output$codes <- renderReactable({
         reactable(
