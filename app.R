@@ -12,7 +12,6 @@ library(lubridate)
 library(ggrepel)
 library(ggforce)
 library(ggdark)
-
 #library(shinyWidgets)
 library(extrafont)
 library(extrafontdb)
@@ -43,7 +42,7 @@ ui <- fluidPage(
             #pickerInput('picker 2', 'picker2', c(1,2,3,4,5), options = list(`live-search`=TRUE))
             #,
             textInput("teamcode", "Teamcode", "1269"),
-            textInput("season", "Season (enter 2018 for 18/19)", "2020"),
+            textInput("season", "Season (enter 2018 for 18/19)", "2019"),
             textInput("compcode", "Competition code (Enter a dot to get everything combined)", "NL1"),
             actionButton("myButton", "Scrape!"),
             br(),
@@ -92,16 +91,15 @@ ui <- fluidPage(
                                  br(),
                                  h4("It will only plot from data that is available on transfermarkt.com, so how far you can come back is different per team!!"),
                                  tableOutput("myTable")),
-                        tabPanel("Age Plot 2020", 
+                        tabPanel("Age Plot 2019", 
                                  h5("Data scraped for:"),
                                  verbatimTextOutput("text1"),
                                  verbatimTextOutput("text5"),
                                  verbatimTextOutput("text11"),
                                  plotOutput("scatplot")),
-                        tabPanel("Age Plot 2020 dark theme", 
+                        tabPanel("Age Plot 2019 dark theme", 
                                  verbatimTextOutput("text9"),
                                  verbatimTextOutput("text10"),
-                                 verbatimTextOutput("text12"),
                                  plotOutput("scatplot4")),
                         tabPanel("Age Plot older season",
                                  h5("Data scraped for:"),
@@ -160,7 +158,6 @@ server <- function(input, output) {
     output$text9 <- renderText(myData()$Club[1])
     output$text10 <- renderText(myData()$Comp[1])
     output$text11 <- renderText(paste0(myData()$Som[1]," minutes"))
-    output$text12 <- renderText(paste0(myData()$Som[1]," minutes"))
     output$myTable <- renderTable(myData())
     output$codes <- renderReactable({
         reactable(
