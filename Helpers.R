@@ -1,6 +1,6 @@
 TransfermarktShiny<- function(team_name, team_num, comp_code) {
   allComp <- readRDS("my_data.rds")
-  session <- bow(glue::glue("https://www.transfermarkt.com/{team_name}/leistungsdaten/verein/{team_num}/plus/1?reldata={comp_code}%262020/"))
+  session <- bow(glue::glue("https://www.transfermarkt.com/{team_name}/leistungsdaten/verein/{team_num}/plus/1?reldata={comp_code}%262019/"))
   #session <- bow(url)
   # grab name from photo element instead
   result_name <- scrape(session) %>% 
@@ -18,7 +18,7 @@ TransfermarktShiny<- function(team_name, team_num, comp_code) {
     html_text()
   
   ## get length
-  session <- bow(glue::glue("https://www.transfermarkt.com/{team_name}/kader/verein/{team_num}/saison_id/2020/plus/1"))
+  session <- bow(glue::glue("https://www.transfermarkt.com/{team_name}/kader/verein/{team_num}/saison_id/2019/plus/1"))
   
   result_name2 <- scrape(session) %>% 
     html_nodes("#yw1 .bilderrahmen-fixed") %>% 
@@ -121,7 +121,7 @@ TransfermarktShiny<- function(team_name, team_num, comp_code) {
   all_team_minutes$name <- all_team_minutes$name %>% str_replace_all("^(\\w)\\w+ (?=\\w)", "\\1.")
   all_team_minutes$Club <- Club
   all_team_minutes$Comp <- comp_code
-  compName <- allComp %>% dplyr::filter(Competition_Code == toupper(comp_code),ignore.case= TRUE)
+  compName <- allComp %>% dplyr::filter(Competition_Code == comp_code)
   all_team_minutes$CompName <- compName[1,2]
   Som <- all_team_minutes %>% filter(!is.na(age_now)) 
   all_team_minutes$Som <- sum(Som$minutes)
@@ -132,13 +132,13 @@ ScatterShiny <- function(data,color1,color2,color3,color4,color5,teamname,alpha,
   #data<- all_team_minutes
   teamname <- gsub("-"," ",teamname)
   
- ggplot(data, aes(x=age_now, y=minutes)) +
+  ggplot(data, aes(x=age_now, y=minutes)) +
     geom_rect(aes(xmin=left,xmax=right, ymin=-Inf,ymax= Inf), fill = color1, alpha=0.01 )+
     
     ggrepel::geom_text_repel(aes(label = name, family = "Spartan-Light"),color=color5, size = 3) +
     ggforce::geom_link(aes(x=age_now, xend=leave_age, y = minutes, yend = minutes,alpha = -stat(index)), color=color3) +
     ggforce::geom_link(aes(x=age_now, xend=join_age, y = minutes, yend = minutes, alpha = -stat(index)),color=color2)+
-    geom_point(color=color4, size = 2) + 
+    geom_point(color=color4, size = 2) +
     theme_bw() + 
     aes(ymin=0) +
     scale_x_continuous(breaks = pretty_breaks(n = 10)) +
