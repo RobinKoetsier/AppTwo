@@ -13,7 +13,7 @@ ScatterShinyOtherDark <- function(data,color1,color2,color3,color4,color5,teamna
     dark_theme_gray() + 
     aes(ymin=0) +
     scale_x_continuous(breaks = pretty_breaks(n = 10)) +
-    labs(x = paste("Age on",format(Sys.time(), "%d %b %Y")),
+    labs(x = "Age at start Season",
          y = "Minutes played",
          title = paste("Age plot", data$Club[1]),
          subtitle = paste(data$CompName[1], data$Seas[1]),
