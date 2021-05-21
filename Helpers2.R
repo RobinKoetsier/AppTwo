@@ -87,7 +87,7 @@ TransfermarktShinyOlder <- function(team_name, team_num, season, comp_code) {
            join = join %>% mdy(),
            join_age = interval(bday, join) / years(1),
            join_age = floor(join_age),
-           leave = leave %>% dmy(),
+           leave = leave %>% mdy(),
            leave_age = interval(bday, leave) / years(1),
            leave_age = floor(leave_age)) %>% 
     filter(!is.na(minutes)) 
