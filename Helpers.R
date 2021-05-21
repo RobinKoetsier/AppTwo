@@ -113,7 +113,7 @@ TransfermarktShiny<- function(team_name, team_num, comp_code) {
            bday = str_replace_all(bday, "\\(.*\\)", "") %>% mdy(),
            join = join %>% mdy(),
            join_age = interval(bday, join) / years(1),
-           leave = leave %>% dmy(),
+           leave = leave %>% mdy(),
            leave_age = interval(bday, leave) / years(1),
            age_now = interval(bday, Sys.Date()) / years(1)) %>% 
     filter(!is.na(minutes)) 
