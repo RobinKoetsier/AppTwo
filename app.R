@@ -23,9 +23,7 @@ source("Helpers.R")
 source("Helpers2.R")
 source("Helpers3.R")
 source("Helpers4.R")
-library(GAlogger)
-ga_set_tracking_id("UA-170459986-1")
-ga_set_approval(consent = TRUE)
+
 #options(shiny.usecairo=T)
 allComp <- readRDS("my_data.rds")
 # Define UI for application that draws a histogram
